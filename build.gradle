@@ -37,3 +37,10 @@ dependencies {
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "LoyaltyOne Technical Assessment"
+        property "sonar.projectKey", "com.ljaskevic:loyaltyone"
+    }
+}
