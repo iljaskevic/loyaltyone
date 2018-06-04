@@ -10,11 +10,15 @@ buildscript {
 	}
 }
 
+plugins {
+  id "org.sonarqube" version "2.6.2"
+}
 apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'war'
+
 
 group = 'com.ljaskevic'
 version = '1.0.0'
