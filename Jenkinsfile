@@ -12,6 +12,12 @@ node {
     sh "./gradlew test"
   }
 
+  stage('SonarQube') {
+    withSonarQubeEnv('SonarQube') {
+      sh './gradlew sonarqube'
+    }
+  }
+
   stage('Deploy Spring Boot Application') {
     // TODO: Add deployment step
   }
