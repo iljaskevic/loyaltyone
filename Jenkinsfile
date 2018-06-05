@@ -21,7 +21,7 @@ node {
   stage('Deploy Spring Boot Application') {
     // TODO: Add deployment step
     sh "scp build/libs/*.war iljaskevic@loyaltyone.ljaskevic.com:/home/iljaskevic/deployments/"
-    sh "export WAR=\$(find build/libs/ -type f -printf '%f\n') && ssh iljaskevic@loyaltyone.ljaskevic.com \"sudo ./deploy.sh $WAR\""
+    sh "export warName=\$(find build/libs/ -type f -printf '%f\n') && ssh iljaskevic@loyaltyone.ljaskevic.com \"sudo ./deploy.sh $WAR\""
   }
 
 }
