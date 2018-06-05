@@ -1,6 +1,9 @@
 html {
   font-size: 14px;
 }
+body {
+  background-color: #ddfeff;
+}
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -15,3 +18,40 @@ html {
 .border-bottom { border-bottom: 1px solid #e5e5e5; }
 
 .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+.comment-wrapper {
+  width: 100%;
+}
+
+.add-comment {
+  width: 100%;
+  padding-top: 15px;
+  border-bottom: 1px solid;
+  margin-bottom: 15px;
+}
+.add-comment .add-comment-text {
+  width: 80%;
+}
+.add-comment .add-comment-btn {
+  width: 20%;
+}
+
+.comments {
+  width: 100%;
+}
+
+.comment {
+  width: 100%;
+}
+.comment .content {
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  border: 1px dotted cadetblue;
+  white-space: pre-wrap;
+}
+.comment .replies {
+  padding-left: 15px;
+  border-left: 1px dotted;
+}
