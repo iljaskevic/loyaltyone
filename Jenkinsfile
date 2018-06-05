@@ -20,6 +20,8 @@ node {
 
   stage('Deploy Spring Boot Application') {
     // TODO: Add deployment step
+    sh "scp 'build/libs/*.{war}' iljaskevic@loyaltyone.ljaskevic.com:/home/iljaskevic/deployments/"
+    sh "ssh iljaskevic@loyaltyone.ljaskevic.com './home/iljaskevic/deploy.sh'"
   }
 
 }
