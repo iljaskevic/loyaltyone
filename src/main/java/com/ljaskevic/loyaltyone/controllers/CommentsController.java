@@ -3,6 +3,8 @@ package com.ljaskevic.loyaltyone.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,6 +40,6 @@ public class CommentsController {
         if (parentId == null || parentId.trim().isEmpty()) {
             parentId = "0";
         }
-        return commentsRepository.findByParentId(parentId);
+        return commentsRepository.findByParentId(parentId, new Sort(Direction.DESC, "dateCreated"));
     }
 }
