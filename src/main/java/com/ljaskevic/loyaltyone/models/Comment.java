@@ -1,4 +1,4 @@
-package com.ljaskevic.loyaltyone.model;
+package com.ljaskevic.loyaltyone.models;
 
 public class Comment {
 

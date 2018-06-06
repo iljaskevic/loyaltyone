@@ -1,8 +1,8 @@
-package com.ljaskevic.loyaltyone.controller;
+package com.ljaskevic.loyaltyone.controllers;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import com.ljaskevic.loyaltyone.model.Comment;
+import com.ljaskevic.loyaltyone.models.Comment;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;

@@ -1,10 +1,10 @@
-package com.ljaskevic.loyaltyone.controller;
+package com.ljaskevic.loyaltyone.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.ljaskevic.loyaltyone.model.Comment;
+import com.ljaskevic.loyaltyone.models.Comment;
 
 @RestController
 @RequestMapping("/api/comments")
