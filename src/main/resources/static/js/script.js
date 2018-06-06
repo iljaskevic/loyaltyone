@@ -12,7 +12,7 @@ $(function() {
     loadRootComments: function() {
       $.ajax({
         type: 'GET',
-        url: '/api/comments',
+        url: '/api/comments/',
         contentType: 'application/json',
         dataType: 'json',
         success: function(data){
@@ -38,7 +38,7 @@ $(function() {
 
         $.ajax({
           type: 'POST',
-          url: '/api/comments',
+          url: '/api/comments/',
           data: JSON.stringify(comment),
           contentType: 'application/json',
           dataType: 'json',
