@@ -18,7 +18,7 @@ $(function() {
         dataType: 'json',
         success: function(data){
           data.forEach(function(item) {
-            let newComment = loyaltyone.getCommentTemplate(item.content);
+            let newComment = loyaltyone.getCommentTemplate(item);
             $('.comments').append(newComment);
             $('textarea#add-comment-text').val('');
           });
