@@ -44,7 +44,7 @@ $(function() {
           contentType: 'application/json',
           dataType: 'json',
           success: function(data){
-            var newComment = loyaltyone.getCommentTemplate(data.content);
+            var newComment = loyaltyone.getCommentTemplate(data);
             $('.comments').prepend(newComment);
             $('textarea#add-comment-text').val('');
           },
