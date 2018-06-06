@@ -12,8 +12,9 @@ $(function() {
         commentDate = 'Today';
       }
       let comTemplate = `<div id="${comment.id}" class="comment">
+      <div class="top-info"><div class="date-created">${commentDate}, ${dateCreated.toLocaleTimeString()}</div></div>
       <div class="content">${comment.content}</div>
-      <div class="info"><div class="date-created">${dateCreated.toLocaleTimeString()}, ${commentDate}</div></div>
+      <div class="bottom-info"></div>
       <div class="replies"></div>
       </div>`;
       return comTemplate;
