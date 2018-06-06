@@ -8,12 +8,13 @@ $(function() {
     return comTemplate;
   }
 
-
   $('#add-comment-btn-post').click(function() {
     var comment = {
       content: $('textarea#add-comment-text').val()
     };
-    console.log('Comment: ' + comment);
+
+    if (comment.content.trim() === "") return;
+
     $.ajax({
       type: 'POST',
       url: '/api/comments',
@@ -21,21 +22,16 @@ $(function() {
       contentType: 'application/json',
       dataType: 'json',
       success: function(data){
-        console.log('Finished');
-        console.log( data );
         var newComment = getCommentTemplate(data.content);
-        console.log(newComment);
         $('.comments').append(newComment);
         $('textarea#add-comment-text').val('');
       },
       failure: function(errMsg) {
-        console.log('Failed');
         console.log( errMsg );
       }
     });
   });
   $('#add-comment-btn-cancel').click(function() {
-    console.log('Clearing comment');
     $('textarea#add-comment-text').val('');
   });
 
