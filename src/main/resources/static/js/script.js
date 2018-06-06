@@ -3,9 +3,17 @@ $(function() {
   var loyaltyone = {
     getCommentTemplate: function(comment) {
       let dateCreated = new Date(comment.dateCreated);
+      let today = new Date();
+      let commentDate = dateCreated.toLocaleDateString();
+      if (dateCreated.getDate() === today.getDate()
+          && dateCreated.getMonth() === today.getMonth()
+          && dateCreated.getFullYear() === today.getFullYear()) {
+
+        commentDate = 'Today';
+      }
       let comTemplate = `<div id="${comment.id}" class="comment">
       <div class="content">${comment.content}</div>
-      <div class="info"><div class="date-created">${dateCreated.toDateString()},${dateCreated.toLocaleTimeString()}</div></div>
+      <div class="info"><div class="date-created">${dateCreated.toLocaleTimeString()}, ${commentDate}</div></div>
       <div class="replies"></div>
       </div>`;
       return comTemplate;
