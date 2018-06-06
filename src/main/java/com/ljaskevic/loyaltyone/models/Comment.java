@@ -1,34 +1,35 @@
 package com.ljaskevic.loyaltyone.models;
 
-import java.util.concurrent.atomic.AtomicLong;
+import org.apache.commons.lang3.RandomStringUtils;
 
 public class Comment {
 
-  private final long id;
-  private final long parentId;
-  private final String content;
+    private final String id;
 
-  public Comment() {
-    this.id = new AtomicLong().get();
-    this.parentId = 0L;
-    this.content = "";
-  }
+    private final String parentId;
+    private final String content;
 
-  public Comment(long parentId, String content) {
-      this.id = new AtomicLong().get();
-      this.parentId = parentId;
-      this.content = content;
-  }
+    public Comment() {
+        this.id = RandomStringUtils.randomAlphanumeric(8);
+        this.parentId = "0";
+        this.content = "";
+    }
 
-  public long getId() {
-      return id;
-  }
+    public Comment(String parentId, String content) {
+        this.id = RandomStringUtils.randomAlphanumeric(8);
+        this.parentId = parentId;
+        this.content = content;
+    }
 
-  public long getParentId() {
-      return parentId;
-  }
+    public String getId() {
+        return id;
+    }
 
-  public String getContent() {
-      return content;
-  }
+    public String getParentId() {
+        return parentId;
+    }
+
+    public String getContent() {
+        return content;
+    }
 }
