@@ -2,9 +2,10 @@ $(function() {
 
   var loyaltyone = {
     getCommentTemplate: function(comment) {
-      var comTemplate = `<div id="${comment.id}" class="comment">
+      let dateCreated = new Date(comment.dateCreated);
+      let comTemplate = `<div id="${comment.id}" class="comment">
       <div class="content">${comment.content}</div>
-      <div class="info"><div class="date-created">${comment.dateCreated}</div></div>
+      <div class="info"><div class="date-created">${dateCreated.toDateString()},${dateCreated.toLocaleTimeString()}</div></div>
       <div class="replies"></div>
       </div>`;
       return comTemplate;
