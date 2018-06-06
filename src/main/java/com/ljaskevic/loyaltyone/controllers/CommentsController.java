@@ -24,8 +24,17 @@ public class CommentsController {
         return comment;
     }
 
+    @GetMapping("/")
+    public List<Comment> getAllRootComments() {
+        return getCommentsByParentId("0");
+    }
+
     @GetMapping("/{parentId}")
     public List<Comment> getAllComments(@PathVariable String parentId) {
+        return getCommentsByParentId(parentId);
+    }
+
+    private List<Comment> getCommentsByParentId(String parentId) {
         if (parentId == null || parentId.trim().isEmpty()) {
             parentId = "0";
         }
