@@ -29,7 +29,7 @@ public class CommentsControllerTest {
   private CommentsController commentsController;
 
   @MockBean
-  private CommentsRepository commentsRepository;
+  private CommentsRepository mockCommentsRepository;
 
   @Test
   public void testSubmit() throws Exception {
@@ -38,7 +38,7 @@ public class CommentsControllerTest {
 
     Comment output = commentsController.submit(input);
 
-    verify(commentsRepository, times(1)).save(input);
+    verify(mockCommentsRepository, times(1)).save(input);
     assertThat(output.getParentId()).isEqualTo("0");
     assertThat(output.getContent()).isEqualTo(testComment);
   }
@@ -46,14 +46,14 @@ public class CommentsControllerTest {
   @Test
   public void testGetAllRootComments() throws Exception {
     List<Comment> result = new ArrayList<Comment>();
-    result.add(new Comment("0", "Test comment content 1"));
-    result.add(new Comment("0", "Test comment content 2"));
+    result.add(new Comment());
+    result.add(new Comment());
 
-    when(commentsRepository.findByParentId("0", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
+    when(mockCommentsRepository.findByParentId("0", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
     List<Comment> output = commentsController.getAllRootComments();
 
-    verify(commentsRepository, times(1)).findByParentId("0", new Sort(Direction.DESC, "dateCreated"));
+    verify(mockCommentsRepository, times(1)).findByParentId("0", new Sort(Direction.DESC, "dateCreated"));
     assertThat(output.size()).isEqualTo(2);
   }
 
@@ -63,27 +63,48 @@ public class CommentsControllerTest {
     result.add(new Comment("1234", "Test comment content 1"));
     result.add(new Comment("1234", "Test comment content 2"));
 
-    when(commentsRepository.findByParentId("1234", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
+    when(mockCommentsRepository.findByParentId("1234", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
     List<Comment> output = commentsController.getAllComments("1234");
 
-    verify(commentsRepository, times(1)).findByParentId("1234", new Sort(Direction.DESC, "dateCreated"));
+    verify(mockCommentsRepository, times(1)).findByParentId("1234", new Sort(Direction.DESC, "dateCreated"));
     assertThat(output.size()).isEqualTo(2);
     assertThat(output.get(0).getParentId()).isEqualTo("1234");
   }
 
   @Test
-  public void testGetAllComments_missingParam() throws Exception {
+  public void testGetAllComments_emptyParam() throws Exception {
     List<Comment> result = new ArrayList<Comment>();
     result.add(new Comment("0", "Test comment content 1"));
     result.add(new Comment("0", "Test comment content 2"));
 
-    when(commentsRepository.findByParentId("0", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
+    when(mockCommentsRepository.findByParentId("0", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
     List<Comment> output = commentsController.getAllComments("");
 
-    verify(commentsRepository, times(1)).findByParentId("0", new Sort(Direction.DESC, "dateCreated"));
+    verify(mockCommentsRepository, times(1)).findByParentId("0", new Sort(Direction.DESC, "dateCreated"));
     assertThat(output.size()).isEqualTo(2);
+    assertThat(output.get(0).getId()).isNotEqualTo("0");
     assertThat(output.get(0).getParentId()).isEqualTo("0");
+    assertThat(output.get(0).getContent()).isEqualTo("Test comment content 1");
+    assertThat(output.get(0).getDateCreated()).isNotNull();
+  }
+
+  @Test
+  public void testGetAllComments_nullParam() throws Exception {
+    List<Comment> result = new ArrayList<Comment>();
+    result.add(new Comment("0", "Test comment content 1"));
+    result.add(new Comment("0", "Test comment content 2"));
+
+    when(mockCommentsRepository.findByParentId("0", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
+
+    List<Comment> output = commentsController.getAllComments(null);
+
+    verify(mockCommentsRepository, times(1)).findByParentId("0", new Sort(Direction.DESC, "dateCreated"));
+    assertThat(output.size()).isEqualTo(2);
+    assertThat(output.get(0).getId()).isNotEqualTo("0");
+    assertThat(output.get(0).getParentId()).isEqualTo("0");
+    assertThat(output.get(0).getContent()).isEqualTo("Test comment content 1");
+    assertThat(output.get(0).getDateCreated()).isNotNull();
   }
 }

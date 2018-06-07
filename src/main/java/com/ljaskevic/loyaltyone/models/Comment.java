@@ -7,9 +7,9 @@ public class Comment {
 
     public final String id;
 
-    public String parentId;
-    public String content;
-    public Date dateCreated;
+    public final String parentId;
+    public final String content;
+    public final Date dateCreated;
 
     public Comment() {
         this.id = RandomStringUtils.randomAlphanumeric(8);
