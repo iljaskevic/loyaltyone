@@ -67,8 +67,6 @@ body {
 .add-comment {
   background-color: darkslategrey;
   width: 100%;
-  border-bottom: 1px solid;
-  margin-bottom: 15px;
   padding: 15px;
 }
 .add-comment .input-group {
@@ -86,7 +84,17 @@ body {
   padding-left: 15px;
   margin-bottom: 15px;
 }
+.filters .filters-text {
+  display: inline-block;
+  color: white;
+  font-size: 20px;
+  margin-right: 15px;
+}
 .filters .btn-secondary {
+  border-color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
   background-color: gainsboro;
   color: black;
 }

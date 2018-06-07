@@ -1,6 +1,7 @@
 package com.ljaskevic.loyaltyone.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -14,26 +15,29 @@ import com.ljaskevic.loyaltyone.repositories.CommentsRepository;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/comments")
+@RequestMapping("/api")
 public class CommentsController {
 
     @Autowired
     CommentsRepository commentsRepository;
 
-    @PostMapping
+    @PostMapping("/comments/")
     public Comment submit(@RequestBody Comment comment) {
         commentsRepository.save(comment);
         return comment;
     }
 
-    @GetMapping("/")
+    @GetMapping("/comments/")
     public List<Comment> getAllRootComments() {
         return getCommentsByParentId("0");
     }
 
-    @GetMapping("/{parentId}")
-    public List<Comment> getAllComments(@PathVariable String parentId) {
-        return getCommentsByParentId(parentId);
+    @GetMapping("/comments/{parentId}/")
+    public List<Comment> getAllComments(@PathVariable String parentId, @RequestParam("username") String username) {
+        if (username == null || username.trim().isEmpty()) {
+            return getCommentsByParentId(parentId);
+        }
+        return commentsRepository.findByParentIdAndUsername(parentId, username, new Sort(Direction.DESC, "dateCreated"));
     }
 
     private List<Comment> getCommentsByParentId(String parentId) {

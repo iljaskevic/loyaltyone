@@ -49,7 +49,8 @@ $(function() {
     addHandlers: function() {
       $('#add-comment-btn-post').click(function() {
         var comment = {
-          content: $('textarea#add-comment-text').val()
+          content: $('textarea#add-comment-text').val(),
+          username: loyaltyone.username
         };
 
         if (comment.content.trim() === "") return;

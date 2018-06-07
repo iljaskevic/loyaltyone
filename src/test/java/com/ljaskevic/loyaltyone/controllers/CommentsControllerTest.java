@@ -65,7 +65,7 @@ public class CommentsControllerTest {
 
     when(mockCommentsRepository.findByParentId("1234", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
-    List<Comment> output = commentsController.getAllComments("1234");
+    List<Comment> output = commentsController.getAllComments("1234", null);
 
     verify(mockCommentsRepository, times(1)).findByParentId("1234", new Sort(Direction.DESC, "dateCreated"));
     assertThat(output.size()).isEqualTo(2);
@@ -80,7 +80,7 @@ public class CommentsControllerTest {
 
     when(mockCommentsRepository.findByParentId("0", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
-    List<Comment> output = commentsController.getAllComments("");
+    List<Comment> output = commentsController.getAllComments("", null);
 
     verify(mockCommentsRepository, times(1)).findByParentId("0", new Sort(Direction.DESC, "dateCreated"));
     assertThat(output.size()).isEqualTo(2);
@@ -98,7 +98,7 @@ public class CommentsControllerTest {
 
     when(mockCommentsRepository.findByParentId("0", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
-    List<Comment> output = commentsController.getAllComments(null);
+    List<Comment> output = commentsController.getAllComments(null, null);
 
     verify(mockCommentsRepository, times(1)).findByParentId("0", new Sort(Direction.DESC, "dateCreated"));
     assertThat(output.size()).isEqualTo(2);
