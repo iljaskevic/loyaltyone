@@ -51,7 +51,7 @@ public class CommentsControllerTest {
 
     when(mockCommentsRepository.findByParentId("0", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
-    List<Comment> output = commentsController.getAllRootComments();
+    List<Comment> output = commentsController.getAllRootComments(null);
 
     verify(mockCommentsRepository, times(1)).findByParentId("0", new Sort(Direction.DESC, "dateCreated"));
     assertThat(output.size()).isEqualTo(2);
