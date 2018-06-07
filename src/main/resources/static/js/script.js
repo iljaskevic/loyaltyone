@@ -74,6 +74,13 @@ $(function() {
       $('#add-comment-btn-cancel').click(function() {
         $('textarea#add-comment-text').val('');
       });
+
+      $('#user-info-form').submit(function(e) {
+        loyaltyone.username = $('#username').val();
+        $('.hello-user').html(`Hello <span class="user">${loyaltyone.username}</span>`);
+        $('#init-overlay').hide();
+        e.preventDefault();
+      });
     },
 
     init: function() {
