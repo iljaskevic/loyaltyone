@@ -43,7 +43,6 @@ body {
 .comment {
   width: 100%;
   padding-bottom: 20px;
-  padding-top: 15px;
 }
 .comment .content {
   background-color: white;
@@ -55,6 +54,7 @@ body {
 }
 .comment .top-info {
   width: 100%;
+  height: 15px;
 }
 .comment .top-info .date-created {
   font-size: 10px;
