@@ -28,8 +28,11 @@ public class CommentsController {
     }
 
     @GetMapping("/comments/")
-    public List<Comment> getAllRootComments() {
-        return getCommentsByParentId("0");
+    public List<Comment> getAllRootComments(@RequestParam(name="username", required=false) String username) {
+        if (username == null || username.trim().isEmpty()) {
+            return getCommentsByParentId("0");
+        }
+        return commentsRepository.findByParentIdAndUsername("0", username, new Sort(Direction.DESC, "dateCreated"));
     }
 
     @GetMapping("/comments/{parentId}/")
