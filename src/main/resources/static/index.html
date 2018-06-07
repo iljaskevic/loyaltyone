@@ -52,10 +52,10 @@
       <div class="filters-text">Filter:</div>
       <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <label class="btn btn-secondary active">
-          <input type="radio" name="filters" id="all-comments" autocomplete="off" checked> All Comments
+          <input type="radio" name="filters" id="all-comments" autocomplete="off" onchange="loyaltyone.filterSelected('all');" checked> All Comments
         </label>
         <label class="btn btn-secondary">
-          <input type="radio" name="filters" id="my-comments" autocomplete="off"> My Comments
+          <input type="radio" name="filters" id="my-comments" autocomplete="off" onchange="loyaltyone.filterSelected('my');"> My Comments
         </label>
       </div>
     </div>

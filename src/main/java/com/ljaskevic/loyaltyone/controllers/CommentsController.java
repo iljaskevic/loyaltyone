@@ -33,7 +33,7 @@ public class CommentsController {
     }
 
     @GetMapping("/comments/{parentId}/")
-    public List<Comment> getAllComments(@PathVariable String parentId, @RequestParam("username") String username) {
+    public List<Comment> getAllComments(@PathVariable String parentId, @RequestParam(name="username", required=false) String username) {
         if (username == null || username.trim().isEmpty()) {
             return getCommentsByParentId(parentId);
         }

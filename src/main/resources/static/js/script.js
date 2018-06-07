@@ -27,18 +27,27 @@ $(function() {
       return comTemplate;
     },
 
-    loadRootComments: function() {
+    populateRootComments: function(comments) {
+      $('.comments').empty();
+      comments.forEach(function(item) {
+        let newComment = loyaltyone.getCommentTemplate(item);
+        $('.comments').append(newComment);
+      });
+    },
+
+    loadRootComments: function(isUserFiltered) {
+      let url = '/api/comments/';
+      if (isUserFiltered) {
+        url = url + '?username=' + loyaltyone.username;
+      }
       $.ajax({
         type: 'GET',
-        url: '/api/comments/',
+        url: url,
         contentType: 'application/json',
         dataType: 'json',
         success: function(data){
-          data.forEach(function(item) {
-            let newComment = loyaltyone.getCommentTemplate(item);
-            $('.comments').append(newComment);
-            $('textarea#add-comment-text').val('');
-          });
+          $('textarea#add-comment-text').val('');
+          loyaltyone.populateRootComments(data);
         },
         failure: function(errMsg) {
           console.log( errMsg );
@@ -82,6 +91,14 @@ $(function() {
         $('#init-overlay').hide();
         e.preventDefault();
       });
+    },
+
+    filterSelected: function(val) {
+      if (val === 'all') {
+        loyaltyone.loadRootComments(false);
+      } else {
+        loyaltyone.loadRootComments(true);
+      }
     },
 
     init: function() {
