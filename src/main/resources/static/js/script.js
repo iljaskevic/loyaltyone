@@ -11,8 +11,15 @@ $(function() {
 
         commentDate = 'Today';
       }
+      let commentUser = 'Anonymous';
+      if (comment.username) {
+        commentUser = comment.username;
+      }
       let comTemplate = `<div id="${comment.id}" class="comment">
-      <div class="top-info"><div class="date-created">${commentDate}, ${dateCreated.toLocaleTimeString()}</div></div>
+      <div class="top-info">
+        <div class="date-created">${commentDate}, ${dateCreated.toLocaleTimeString()}</div>
+        <div class="user">${commentUser}</div>
+      </div>
       <div class="content">${comment.content}</div>
       <div class="bottom-info"></div>
       <div class="replies"></div>

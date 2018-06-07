@@ -61,6 +61,13 @@ body {
   float: left;
   text-align: left;
 }
+.comment .top-info .user {
+  font-size: 13px;
+  line-height: 13px;
+  float: left;
+  padding-left: 5px;
+  color: mediumblue;
+}
 .comment .bottom-info {
   width: 100%;
 }
