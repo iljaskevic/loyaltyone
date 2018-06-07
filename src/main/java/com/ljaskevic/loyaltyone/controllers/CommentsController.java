@@ -21,6 +21,8 @@ public class CommentsController {
     @Autowired
     CommentsRepository commentsRepository;
 
+    private static final String DATE_FIELD_NAME = "dateCreated";
+
     @PostMapping("/comments/")
     public Comment submit(@RequestBody Comment comment) {
         commentsRepository.save(comment);
@@ -32,7 +34,7 @@ public class CommentsController {
         if (username == null || username.trim().isEmpty()) {
             return getCommentsByParentId("0");
         }
-        return commentsRepository.findByParentIdAndUsername("0", username, new Sort(Direction.DESC, "dateCreated"));
+        return commentsRepository.findByParentIdAndUsername("0", username, new Sort(Direction.DESC, DATE_FIELD_NAME));
     }
 
     @GetMapping("/comments/{parentId}/")
@@ -40,13 +42,13 @@ public class CommentsController {
         if (username == null || username.trim().isEmpty()) {
             return getCommentsByParentId(parentId);
         }
-        return commentsRepository.findByParentIdAndUsername(parentId, username, new Sort(Direction.DESC, "dateCreated"));
+        return commentsRepository.findByParentIdAndUsername(parentId, username, new Sort(Direction.DESC, DATE_FIELD_NAME));
     }
 
     private List<Comment> getCommentsByParentId(String parentId) {
         if (parentId == null || parentId.trim().isEmpty()) {
             parentId = "0";
         }
-        return commentsRepository.findByParentId(parentId, new Sort(Direction.DESC, "dateCreated"));
+        return commentsRepository.findByParentId(parentId, new Sort(Direction.DESC, DATE_FIELD_NAME));
     }
 }
