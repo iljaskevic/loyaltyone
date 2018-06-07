@@ -30,14 +30,14 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
-.user-info-form label {
+.user-info-form .user-input-label {
   color: white;
   float: left;
 }
-.user-info-form input {
+.user-info-form .user-input {
   margin-bottom: 15px;
 }
-.user-info-form button {
+.user-info-form .submit-btn {
   width: 100%;
 }
 
@@ -57,11 +57,19 @@ body {
   width: 100%;
 }
 
-.add-comment {
-  width: 100%;
+.hello-user {
+  background-color: darkslategrey;
   padding-top: 15px;
+  padding-left: 15px;
+  color: white;
+}
+
+.add-comment {
+  background-color: darkslategrey;
+  width: 100%;
   border-bottom: 1px solid;
   margin-bottom: 15px;
+  padding: 15px;
 }
 .add-comment .add-comment-text {
   width: 80%;
