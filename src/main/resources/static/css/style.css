@@ -30,14 +30,14 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
-.user-info-form .user-input-label {
+#user-info-form .user-input-label {
   color: white;
   float: left;
 }
-.user-info-form .user-input {
+#user-info-form .user-input {
   margin-bottom: 15px;
 }
-.user-info-form .submit-btn {
+#user-info-form .submit-btn {
   width: 100%;
 }
 
@@ -71,11 +71,28 @@ body {
   margin-bottom: 15px;
   padding: 15px;
 }
+.add-comment .input-group {
+  margin-bottom: 0 !important;
+}
 .add-comment .add-comment-text {
   width: 80%;
 }
 .add-comment .add-comment-btn {
   width: 20%;
+}
+.filters {
+  background-color: darkslategrey;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  margin-bottom: 15px;
+}
+.filters .btn-secondary {
+  background-color: gainsboro;
+  color: black;
+}
+.filters .btn-secondary .active {
+  background-color: cadetblue;
+  color: white;
 }
 
 .comments {
