@@ -146,7 +146,7 @@ public class CommentsControllerTest {
     List<Comment> output = commentsController.getAllComments("1234", "test");
 
     verify(mockCommentsRepository, times(1)).findByParentIdAndUsername("1234", "test", new Sort(Direction.DESC, "dateCreated"));
-    assertThat(output.size()).isEqualTo(2);
+    assertThat(output.size()).isEqualTo(1);
     assertThat(output.get(0).getParentId()).isEqualTo("1234");
     assertThat(output.get(0).getUsername()).isEqualTo("test");
   }
