@@ -25,6 +25,11 @@ public class CommentsController {
 
     @PostMapping("/comments/")
     public Comment submit(@RequestBody Comment comment) {
+        if (comment.getParentId().trim() != "0") {
+            Comment parent = commentsRepository.findById(comment.getParentId(), new Sort(Direction.DESC, DATE_FIELD_NAME));
+            parent.incrementRepliesCount();
+            commentsRepository.save(parent);
+        }
         commentsRepository.save(comment);
         return comment;
     }

@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
 import com.ljaskevic.loyaltyone.models.Comment;
+import com.ljaskevic.loyaltyone.models.User;
 import com.ljaskevic.loyaltyone.repositories.CommentsRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,7 +35,7 @@ public class CommentsControllerTest {
   @Test
   public void testSubmit() throws Exception {
     String testComment = "Test comment content";
-    Comment input = new Comment("0", "test", testComment);
+    Comment input = new Comment("0", new User("test"), testComment);
 
     Comment output = commentsController.submit(input);
 
@@ -87,8 +88,8 @@ public class CommentsControllerTest {
   @Test
   public void testGetAllComments() throws Exception {
     List<Comment> result = new ArrayList<Comment>();
-    result.add(new Comment("1234", "test", "Test comment content 1"));
-    result.add(new Comment("1234", "test", "Test comment content 2"));
+    result.add(new Comment("1234", new User("test"), "Test comment content 1"));
+    result.add(new Comment("1234", new User("test"), "Test comment content 2"));
 
     when(mockCommentsRepository.findByParentId("1234", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
@@ -102,8 +103,8 @@ public class CommentsControllerTest {
   @Test
   public void testGetAllComments_emptyParam() throws Exception {
     List<Comment> result = new ArrayList<Comment>();
-    result.add(new Comment("0", "test", "Test comment content 1"));
-    result.add(new Comment("0", "test", "Test comment content 2"));
+    result.add(new Comment("0", new User("test"), "Test comment content 1"));
+    result.add(new Comment("0", new User("test"), "Test comment content 2"));
 
     when(mockCommentsRepository.findByParentId("0", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
@@ -120,8 +121,8 @@ public class CommentsControllerTest {
   @Test
   public void testGetAllComments_nullParam() throws Exception {
     List<Comment> result = new ArrayList<Comment>();
-    result.add(new Comment("0", "test", "Test comment content 1"));
-    result.add(new Comment("0", "test", "Test comment content 2"));
+    result.add(new Comment("0", new User("test"), "Test comment content 1"));
+    result.add(new Comment("0", new User("test"), "Test comment content 2"));
 
     when(mockCommentsRepository.findByParentId("0", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
@@ -131,7 +132,7 @@ public class CommentsControllerTest {
     assertThat(output.size()).isEqualTo(2);
     assertThat(output.get(0).getId()).isNotEqualTo("0");
     assertThat(output.get(0).getParentId()).isEqualTo("0");
-    assertThat(output.get(0).getUsername()).isEqualTo("test");
+    assertThat(output.get(0).getUser().getUsername()).isEqualTo("test");
     assertThat(output.get(0).getContent()).isEqualTo("Test comment content 1");
     assertThat(output.get(0).getDateCreated()).isNotNull();
   }
@@ -139,7 +140,7 @@ public class CommentsControllerTest {
   @Test
   public void testGetAllComments_withUsername() throws Exception {
     List<Comment> result = new ArrayList<Comment>();
-    result.add(new Comment("1234", "test", "Test comment content 1"));
+    result.add(new Comment("1234", new User("test"), "Test comment content 1"));
 
     when(mockCommentsRepository.findByParentIdAndUsername("1234", "test", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
@@ -148,6 +149,6 @@ public class CommentsControllerTest {
     verify(mockCommentsRepository, times(1)).findByParentIdAndUsername("1234", "test", new Sort(Direction.DESC, "dateCreated"));
     assertThat(output.size()).isEqualTo(1);
     assertThat(output.get(0).getParentId()).isEqualTo("1234");
-    assertThat(output.get(0).getUsername()).isEqualTo("test");
+    assertThat(output.get(0).getUser().getUsername()).isEqualTo("test");
   }
 }

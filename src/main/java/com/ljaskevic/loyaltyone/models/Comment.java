@@ -1,29 +1,38 @@
 package com.ljaskevic.loyaltyone.models;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.ljaskevic.loyaltyone.models.User;
 import java.util.Date;
 
+@Document
 public class Comment {
 
+    @Id
     public final String id;
 
     public final String parentId;
-    public final String username;
+    public final User user;
     public final String content;
     public final Date dateCreated;
+    public int repliesCount;
 
     public Comment() {
         this.id = RandomStringUtils.randomAlphanumeric(8);
         this.parentId = "0";
-        this.username = "Anonymous";
+        this.user = new User();
         this.content = "";
+        this.repliesCount = 0;
         this.dateCreated = new Date();
     }
 
-    public Comment(String parentId, String username, String content) {
+    public Comment(String parentId, User user, String content) {
         this.id = RandomStringUtils.randomAlphanumeric(8);
         this.parentId = parentId;
-        this.username = username;
+        this.user = user;
+        this.repliesCount = 0;
         this.content = content;
         this.dateCreated = new Date();
     }
@@ -36,8 +45,16 @@ public class Comment {
         return parentId;
     }
 
-    public String getUsername() {
-        return username;
+    public int getRepliesCount() {
+        return repliesCount;
+    }
+
+    public void incrementRepliesCount() {
+        this.repliesCount++;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public String getContent() {
