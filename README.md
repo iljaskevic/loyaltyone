@@ -8,7 +8,7 @@
 
 To run locally, run the following command:
 
-```./gradlew bootRun```
+```./gradlew bootRun -Pdev```
 
 This will run the application on an embedded tomcat on port `8080`
 
