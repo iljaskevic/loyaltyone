@@ -19,9 +19,9 @@
         <div class="form-row">
           <div class="col-md-12 mb-12">
             <label for="username" class="user-input-label">Username</label>
-            <input type="text" class="form-control is-valid user-input" id="username" name="username" placeholder="Username" required>
+            <input type="text" pattern="[a-zA-Z0-9_-]" class="form-control is-valid user-input" id="username" name="username" placeholder="Username" title="Only alphanumeric characters, dashes and underscores" required>
             <!-- <div class="invalid-feedback">
-              Looks good!
+              Only alphanumeric characters, dashes and underscores
             </div> -->
           </div>
         </div>
@@ -34,7 +34,9 @@
             </div>
           </div>
         </div> -->
-        <button class="btn btn-primary submit-btn" type="submit">Continue</button>
+        <button class="btn btn-primary submit-btn" type="submit">Enter</button>
+        <hr>
+        <a href="#" class="btn btn-primary anonymous-btn" type="submit">Continue Anonymous</a>
       </form>
     </div>
   </div>

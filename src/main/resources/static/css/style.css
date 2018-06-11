@@ -40,6 +40,14 @@ body {
 #user-info-form .submit-btn {
   width: 100%;
 }
+#user-info-form hr {
+  border-color: darkslategray;
+}
+#user-info-form .anonymous-btn {
+  width: 100%;
+  background-color: darkseagreen;
+  border: none;
+}
 
 
 
@@ -78,6 +86,21 @@ body {
 .add-comment .add-comment-btn {
   width: 20%;
 }
+
+.add-reply {
+  background-color: darkslategrey;
+  width: 100%;
+  padding: 15px;
+}
+.add-reply .input-group {
+  margin-bottom: 0 !important;
+}
+.add-reply .add-reply-text {
+  width: 80%;
+}
+.add-reply .add-reply-btn {
+  width: 20%;
+}
 .filters {
   background-color: darkslategrey;
   padding-bottom: 15px;
@@ -109,13 +132,12 @@ body {
 
 .comment {
   width: 100%;
-  padding-bottom: 20px;
+  padding-bottom: 15px;
 }
 .comment .content {
   background-color: white;
   padding: 10px;
   border-radius: 10px;
-  margin-bottom: 5px;
   border: 1px dotted cadetblue;
   white-space: pre-wrap;
 }
@@ -137,6 +159,17 @@ body {
 }
 .comment .bottom-info {
   width: 100%;
+}
+.comment .bottom-info .reply-btn {
+  font-size: 12px;
+  float: right;
+  color: blue;
+  width: 50px;
+}
+.comment .bottom-info .show-replies-btn {
+  font-size: 12px;
+  float: right;
+  color: blue;
 }
 .comment .replies {
   padding-left: 15px;
