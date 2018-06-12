@@ -93,20 +93,6 @@ public class UsersControllerTest {
     verify(mockHttpServletResponse, times(1)).setStatus(404);
   }
 
-  // @Test
-  // public void testGetAllUsers() throws Exception {
-  //   List<User> result = new ArrayList<>();
-  //   result.add(new User("testuser"));
-  //   result.add(new User("testuser"));
-  //   when(mockUsersRepository.findAll(ArgumentMatcher.argThat(new Sort(Direction.DESC, "dateCreated"))).thenReturn(result));
-
-  //   List<User> output = usersController.getAllUsers();
-
-  //   verify(mockUsersRepository, times(1)).findAll(ArgumentMatchers.any());
-  //   verify(mockHttpServletResponse, times(1)).setStatus(200);
-  // }
-
-
   @Test
   public void testDeleteUser() throws Exception {
     User out = new User("testuser");
