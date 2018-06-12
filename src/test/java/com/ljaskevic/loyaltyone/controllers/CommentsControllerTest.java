@@ -93,7 +93,7 @@ public class CommentsControllerTest {
 
     when(mockCommentsRepository.findByParentId("1234", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
-    List<Comment> output = commentsController.getAllComments("1234", null);
+    List<Comment> output = commentsController.getAllCommentReplies("1234", null);
 
     verify(mockCommentsRepository, times(1)).findByParentId("1234", new Sort(Direction.DESC, "dateCreated"));
     assertThat(output.size()).isEqualTo(2);
@@ -108,7 +108,7 @@ public class CommentsControllerTest {
 
     when(mockCommentsRepository.findByParentId("0", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
-    List<Comment> output = commentsController.getAllComments("", null);
+    List<Comment> output = commentsController.getAllCommentReplies("", null);
 
     verify(mockCommentsRepository, times(1)).findByParentId("0", new Sort(Direction.DESC, "dateCreated"));
     assertThat(output.size()).isEqualTo(2);
@@ -126,7 +126,7 @@ public class CommentsControllerTest {
 
     when(mockCommentsRepository.findByParentId("0", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
-    List<Comment> output = commentsController.getAllComments(null, null);
+    List<Comment> output = commentsController.getAllCommentReplies(null, null);
 
     verify(mockCommentsRepository, times(1)).findByParentId("0", new Sort(Direction.DESC, "dateCreated"));
     assertThat(output.size()).isEqualTo(2);
@@ -142,11 +142,11 @@ public class CommentsControllerTest {
     List<Comment> result = new ArrayList<Comment>();
     result.add(new Comment("1234", new User("test"), "Test comment content 1"));
 
-    when(mockCommentsRepository.findByParentIdAndUsername("1234", "test", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
+    when(mockCommentsRepository.findByParentIdAndUserId("1234", "test", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
-    List<Comment> output = commentsController.getAllComments("1234", "test");
+    List<Comment> output = commentsController.getAllCommentReplies("1234", "test");
 
-    verify(mockCommentsRepository, times(1)).findByParentIdAndUsername("1234", "test", new Sort(Direction.DESC, "dateCreated"));
+    verify(mockCommentsRepository, times(1)).findByParentIdAndUserId("1234", "test", new Sort(Direction.DESC, "dateCreated"));
     assertThat(output.size()).isEqualTo(1);
     assertThat(output.get(0).getParentId()).isEqualTo("1234");
     assertThat(output.get(0).getUser().getUsername()).isEqualTo("test");
