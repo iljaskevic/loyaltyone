@@ -228,8 +228,6 @@ var loyaltyone = {
           }
           $('.hello-user .welcome').html(`${welcome}`);
           $('.hello-user .user').html(`${loyaltyone.user.username}`);
-          $('.hello-user .temp').hide();
-          $('.hello-user .city').hide();
           $('#init-overlay').hide();
         },
         failure: function(errMsg) {
@@ -252,6 +250,8 @@ var loyaltyone = {
   },
 
   getWeather: function(city) {
+    $('.hello-user .temp').hide();
+    $('.hello-user .city').hide();
     $.ajax({
       type: 'GET',
       url: `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=f897089667f54eca680d91247fe53d95&callback=?`,
@@ -267,7 +267,7 @@ var loyaltyone = {
       coord: data.coord,
       temp: data.main.temp
     };
-    if (loyaltyone.location) {
+    if (loyaltyone.location.city) {
       $('.hello-user .temp').html(`Temp: ${Math.round(loyaltyone.location.temp)}&#8451;`);
       $('.hello-user .temp').show();
       $('.hello-user .city').html(`City: ${loyaltyone.location.city}`);
