@@ -12,7 +12,7 @@ var loyaltyone = {
 
     let replies = '';
     if (comment.repliesCount > 0) {
-      replies = `<a href="#" data-parent-id="${comment.id}" class="show-replies-btn">View Replies (${comment.repliesCount})</a>`;
+      replies = `<a href="#" data-parent-id="${comment.id}" class="show-replies-btn">[+] View Replies (${comment.repliesCount})</a>`;
     }
 
     let comTemplate = `
@@ -21,11 +21,13 @@ var loyaltyone = {
         <div class="date-created">${commentDate}, ${dateCreated.toLocaleTimeString()}</div>
         <div class="user">${comment.user.username}</div>
       </div>
-      <div class="content">${comment.content}</div>
-      <div class="bottom-info">
-        <div class="comment-ctl">
-          <a href="#" data-parent-id="${comment.id}" class="reply-btn">Reply</a>
-          ${replies}
+      <div class="content">
+        <div class="content-text">${comment.content}</div>
+        <div class="bottom-info">
+          <div class="comment-ctl">
+            <a href="#" data-parent-id="${comment.id}" class="reply-btn">Reply</a>
+            ${replies}
+          </div>
         </div>
       </div>
       <div class="replies"></div>
@@ -67,7 +69,7 @@ var loyaltyone = {
   },
 
   insertReplyComment: function(parentId, comment) {
-    $(`#${parentId}`).children('.replies').prepend(loyaltyone.getCommentTemplate(comment));
+    $(`#${parentId}`).children('.replies').append(loyaltyone.getCommentTemplate(comment));
   },
 
   getComments: function(url, successHandler) {
@@ -85,10 +87,10 @@ var loyaltyone = {
   },
 
   loadRootComments: function() {
-    let url = '/api/comments/';
+    let url = '/api/comments';
 
     if (loyaltyone.isUserFiltered) {
-      url = url + '?username=' + loyaltyone.username;
+      url = url + '?q=' + loyaltyone.user.id;
     }
 
     loyaltyone.getComments(url, function(data) {
@@ -100,11 +102,11 @@ var loyaltyone = {
     let url = '/api/comments/';
 
     if (parentId) {
-      url = url + `${parentId}/`;
+      url = url + `${parentId}/replies`;
     }
 
     if (loyaltyone.isUserFiltered) {
-      url = url + '?username=' + loyaltyone.username;
+      url = url + '?q=' + loyaltyone.user.id;
     }
 
     loyaltyone.getComments(url, function(data) {
@@ -115,7 +117,7 @@ var loyaltyone = {
   postComment: function(comment, successHandler) {
     $.ajax({
       type: 'POST',
-      url: '/api/comments/',
+      url: '/api/comments',
       data: JSON.stringify(comment),
       contentType: 'application/json',
       dataType: 'json',
@@ -130,9 +132,7 @@ var loyaltyone = {
     $('#add-comment-btn-post').click(function() {
       var comment = {
         content: $('textarea#add-comment-text').val(),
-        user: {
-          username: loyaltyone.username
-        }
+        user: loyaltyone.user
       };
 
       if (comment.content.trim() === "") return;
@@ -158,7 +158,7 @@ var loyaltyone = {
     $('.comments').on('click', '.reply-btn', function(e) {
       console.log('Clicked');
       $(this).parent().hide();
-      $(this).parent().parent().prepend(loyaltyone.getCommentBox($(this).data('parent-id')));
+      $(this).parent().parent().parent().siblings('.replies').prepend(loyaltyone.getCommentBox($(this).data('parent-id')));
       e.preventDefault();
     });
 
@@ -167,9 +167,7 @@ var loyaltyone = {
       var comment = {
         parentId: $(this).data('parent-id'),
         content: $(this).parent().parent().find('.add-reply-text').val(),
-        user: {
-          username: loyaltyone.username
-        }
+        user: loyaltyone.user
       };
 
       if (comment.content.trim() === "") return;
@@ -191,9 +189,29 @@ var loyaltyone = {
     });
 
     $('#user-info-form').submit(function(e) {
-      loyaltyone.username = $('#username').val();
-      $('.hello-user').html(`Hello <span class="user">${loyaltyone.username}</span>!`);
-      $('#init-overlay').hide();
+      let user = {
+        username: $('#username').val()
+      };
+      $.ajax({
+        type: 'POST',
+        url: '/login',
+        data: JSON.stringify(user),
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(user, status, jqXHR) {
+          loyaltyone.user = user;
+          let welcome = 'Welcome';
+          if (jqXHR.status === 200) {
+            welcome = 'Welcome back';
+          }
+          $('.hello-user').html(`${welcome} <span class="user">${loyaltyone.user.username}</span>!`);
+          $('#init-overlay').hide();
+        },
+        failure: function(errMsg) {
+          console.log( errMsg );
+        }
+      });
+
       e.preventDefault();
     });
   },

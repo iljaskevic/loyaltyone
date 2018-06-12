@@ -91,6 +91,7 @@ body {
   background-color: darkslategrey;
   width: 100%;
   padding: 15px;
+  border-radius: 0 10px 10px 10px;
 }
 .add-reply .input-group {
   margin-bottom: 0 !important;
@@ -135,11 +136,15 @@ body {
   padding-bottom: 15px;
 }
 .comment .content {
+  position: relative;
+}
+.comment .content .content-text {
   background-color: white;
   padding: 10px;
   border-radius: 10px;
   border: 1px dotted cadetblue;
   white-space: pre-wrap;
+  padding-bottom: 30px;
 }
 .comment .top-info {
   width: 100%;
@@ -157,19 +162,26 @@ body {
   padding-left: 5px;
   color: mediumblue;
 }
-.comment .bottom-info {
+.comment .content .bottom-info {
   width: 100%;
+  position: absolute;
+  bottom: 0;
+  background-color: lightgray;
+  border-radius: 0 0 10px 10px;
 }
-.comment .bottom-info .reply-btn {
+.comment .content .bottom-info .reply-btn {
   font-size: 12px;
   float: right;
   color: blue;
   width: 50px;
+  line-height: 25px;
+  margin-left: 15px;
 }
-.comment .bottom-info .show-replies-btn {
+.comment .content .bottom-info .show-replies-btn {
   font-size: 12px;
   float: right;
   color: blue;
+  line-height: 25px;
 }
 .comment .replies {
   padding-left: 15px;

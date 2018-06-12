@@ -21,12 +21,13 @@ public class CommentsController {
     @Autowired
     CommentsRepository commentsRepository;
 
-    private static final String DATE_FIELD_NAME = "dateCreated";
+    private static final Sort SORTER_DESC = new Sort(Direction.DESC, "dateCreated");
+    private static final Sort SORTER_ASC = new Sort(Direction.DESC, "dateCreated");
 
-    @PostMapping("/comments/")
+    @PostMapping("/comments")
     public Comment submit(@RequestBody Comment comment) {
         if (comment.getParentId().trim() != "0") {
-            Comment parent = commentsRepository.findById(comment.getParentId(), new Sort(Direction.DESC, DATE_FIELD_NAME));
+            Comment parent = commentsRepository.findById(comment.getParentId(), SORTER_DESC);
             parent.incrementRepliesCount();
             commentsRepository.save(parent);
         }
@@ -34,26 +35,31 @@ public class CommentsController {
         return comment;
     }
 
-    @GetMapping("/comments/")
+    @GetMapping("/comments")
     public List<Comment> getAllRootComments(@RequestParam(name="username", required=false) String username) {
         if (username == null || username.trim().isEmpty()) {
-            return getCommentsByParentId("0");
+            return getCommentsByParentId("0", SORTER_DESC);
         }
-        return commentsRepository.findByParentIdAndUsername("0", username, new Sort(Direction.DESC, DATE_FIELD_NAME));
+        return commentsRepository.findByParentIdAndUsername("0", username, SORTER_DESC);
     }
 
-    @GetMapping("/comments/{parentId}/")
-    public List<Comment> getAllComments(@PathVariable String parentId, @RequestParam(name="username", required=false) String username) {
-        if (username == null || username.trim().isEmpty()) {
-            return getCommentsByParentId(parentId);
-        }
-        return commentsRepository.findByParentIdAndUsername(parentId, username, new Sort(Direction.DESC, DATE_FIELD_NAME));
+    @GetMapping("/comments/{commentId}")
+    public Comment getComment(@PathVariable String commentId) {
+        return commentsRepository.findById(commentId, SORTER_DESC);
     }
 
-    private List<Comment> getCommentsByParentId(String parentId) {
+    @GetMapping("/comments/{commentId}/replies")
+    public List<Comment> getAllCommentReplies(@PathVariable String commentId, @RequestParam(name="q", required=false) String userId) {
+        if (userId == null || userId.trim().isEmpty()) {
+            return getCommentsByParentId(commentId, SORTER_ASC);
+        }
+        return commentsRepository.findByParentIdAndUserId(commentId, userId, SORTER_ASC);
+    }
+
+    private List<Comment> getCommentsByParentId(String parentId, Sort sorter) {
         if (parentId == null || parentId.trim().isEmpty()) {
             parentId = "0";
         }
-        return commentsRepository.findByParentId(parentId, new Sort(Direction.DESC, DATE_FIELD_NAME));
+        return commentsRepository.findByParentId(parentId, sorter);
     }
 }
