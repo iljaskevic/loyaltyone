@@ -247,7 +247,7 @@ var loyaltyone = {
   getWeather: function(city) {
     $.ajax({
       type: 'GET',
-      url: `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=f897089667f54eca680d91247fe53d95&callback=?`,
+      url: `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=f897089667f54eca680d91247fe53d95&callback=?`,
       contentType: 'application/json',
       dataType: 'jsonp',
       jsonpCallback: 'loyaltyone.weatherCallback'

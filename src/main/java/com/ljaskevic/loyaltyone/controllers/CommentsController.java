@@ -36,11 +36,11 @@ public class CommentsController {
     }
 
     @GetMapping("/comments")
-    public List<Comment> getAllRootComments(@RequestParam(name="username", required=false) String username) {
-        if (username == null || username.trim().isEmpty()) {
+    public List<Comment> getAllRootComments(@RequestParam(name="q", required=false) String userId) {
+        if (userId == null || userId.trim().isEmpty()) {
             return getCommentsByParentId("0", SORTER_DESC);
         }
-        return commentsRepository.findByParentIdAndUsername("0", username, SORTER_DESC);
+        return commentsRepository.findByParentIdAndUserId("0", userId, SORTER_DESC);
     }
 
     @GetMapping("/comments/{commentId}")
