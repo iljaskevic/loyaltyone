@@ -46,7 +46,7 @@ var loyaltyone = {
           <textarea class="form-control add-reply-text" placeholder="Post something..." aria-label="Post something..."></textarea>
           <div class="input-group-append">
             <button data-parent-id="${parentId}" class="btn btn-outline-primary add-reply-btn-post" type="button">Done</button>
-            <button class="btn btn-outline-secondary add-reply-btn-cancel" type="button">Clear</button>
+            <button data-parent-id="${parentId}" class="btn btn-outline-secondary add-reply-btn-cancel" type="button">Clear</button>
           </div>
         </div>
     </div>`;
@@ -141,6 +141,7 @@ var loyaltyone = {
   },
 
   addHandlers: function() {
+    // Posting comment handler
     $('#add-comment-btn-post').click(function() {
       var comment = {
         content: $('textarea#add-comment-text').val(),
@@ -156,10 +157,12 @@ var loyaltyone = {
       $('textarea#add-comment-text').val('');
     });
 
+    // Cancel posting comment handler
     $('#add-comment-btn-cancel').click(function() {
       $('textarea#add-comment-text').val('');
     });
 
+    // Expand/show replies of a comment handler
     $('.comments').on('click', '.show-replies-btn', function(e) {
       console.log('Showing replies');
       $(this).hide();
@@ -167,6 +170,7 @@ var loyaltyone = {
       e.preventDefault();
     });
 
+    // Open form to reply to a comment handler
     $('.comments').on('click', '.reply-btn', function(e) {
       console.log('Clicked');
       $(this).parent().hide();
@@ -174,6 +178,7 @@ var loyaltyone = {
       e.preventDefault();
     });
 
+    // Submit reply to a comment handler
     $('.comments').on('click', '.add-reply-btn-post', function(e) {
       console.log('Clicked post');
       var comment = {
@@ -192,6 +197,7 @@ var loyaltyone = {
       e.preventDefault();
     });
 
+    // Cancel reply to a comment handler
     $('.comments').on('click', '.add-reply-btn-cancel', function(e) {
       console.log('Clicked cancel');
       let parentId = $(this).data('parent-id');
@@ -200,6 +206,7 @@ var loyaltyone = {
       e.preventDefault();
     });
 
+    // Initial user form for username/city
     $('#user-info-form').submit(function(e) {
       let user = {
         username: $('#username').val()
