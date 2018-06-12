@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
 import com.ljaskevic.loyaltyone.models.Comment;
+import com.ljaskevic.loyaltyone.models.LocationInfo;
 import com.ljaskevic.loyaltyone.models.User;
 import com.ljaskevic.loyaltyone.repositories.CommentsRepository;
 
@@ -35,7 +36,7 @@ public class CommentsControllerTest {
   @Test
   public void testSubmit() throws Exception {
     String testComment = "Test comment content";
-    Comment input = new Comment("0", new User("test"), testComment);
+    Comment input = new Comment("0", new User("test"), testComment, new LocationInfo());
 
     Comment output = commentsController.submit(input);
 
@@ -88,8 +89,8 @@ public class CommentsControllerTest {
   @Test
   public void testGetAllComments() throws Exception {
     List<Comment> result = new ArrayList<Comment>();
-    result.add(new Comment("1234", new User("test"), "Test comment content 1"));
-    result.add(new Comment("1234", new User("test"), "Test comment content 2"));
+    result.add(new Comment("1234", new User("test"), "Test comment content 1", new LocationInfo()));
+    result.add(new Comment("1234", new User("test"), "Test comment content 2", new LocationInfo()));
 
     when(mockCommentsRepository.findByParentId("1234", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
@@ -103,8 +104,8 @@ public class CommentsControllerTest {
   @Test
   public void testGetAllComments_emptyParam() throws Exception {
     List<Comment> result = new ArrayList<Comment>();
-    result.add(new Comment("0", new User("test"), "Test comment content 1"));
-    result.add(new Comment("0", new User("test"), "Test comment content 2"));
+    result.add(new Comment("0", new User("test"), "Test comment content 1", new LocationInfo()));
+    result.add(new Comment("0", new User("test"), "Test comment content 2", new LocationInfo()));
 
     when(mockCommentsRepository.findByParentId("0", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
@@ -121,8 +122,8 @@ public class CommentsControllerTest {
   @Test
   public void testGetAllComments_nullParam() throws Exception {
     List<Comment> result = new ArrayList<Comment>();
-    result.add(new Comment("0", new User("test"), "Test comment content 1"));
-    result.add(new Comment("0", new User("test"), "Test comment content 2"));
+    result.add(new Comment("0", new User("test"), "Test comment content 1", new LocationInfo()));
+    result.add(new Comment("0", new User("test"), "Test comment content 2", new LocationInfo()));
 
     when(mockCommentsRepository.findByParentId("0", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 
@@ -140,7 +141,7 @@ public class CommentsControllerTest {
   @Test
   public void testGetAllComments_withUsername() throws Exception {
     List<Comment> result = new ArrayList<Comment>();
-    result.add(new Comment("1234", new User("test"), "Test comment content 1"));
+    result.add(new Comment("1234", new User("test"), "Test comment content 1", new LocationInfo()));
 
     when(mockCommentsRepository.findByParentIdAndUserId("1234", "test", new Sort(Direction.DESC, "dateCreated"))).thenReturn(result);
 

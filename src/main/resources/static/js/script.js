@@ -1,4 +1,5 @@
 var loyaltyone = {
+
   getCommentTemplate: function(comment) {
     let dateCreated = new Date(comment.dateCreated);
     let today = new Date();
@@ -18,8 +19,11 @@ var loyaltyone = {
     let comTemplate = `
     <div id="${comment.id}" class="comment">
       <div class="top-info">
-        <div class="date-created">${commentDate}, ${dateCreated.toLocaleTimeString()}</div>
         <div class="user">${comment.user.username}</div>
+        <div class="date-created">- ${commentDate}, ${dateCreated.toLocaleTimeString()},</div>
+        <div class="city">City: ${comment.locationInfo.city}</div>
+        <div class="loc">(${comment.locationInfo.lon},${comment.locationInfo.lat}),</div>
+        <div class="temp">Temp: ${Math.round(comment.locationInfo.temp)}&#8451;</div>
       </div>
       <div class="content">
         <div class="content-text">${comment.content}</div>
@@ -115,6 +119,14 @@ var loyaltyone = {
   },
 
   postComment: function(comment, successHandler) {
+    if (loyaltyone.location) {
+      comment.locationInfo = {
+        city: loyaltyone.location.city,
+        temp: loyaltyone.location.temp,
+        lon: loyaltyone.location.coord.lon,
+        lat: loyaltyone.location.coord.lat
+      };
+    }
     $.ajax({
       type: 'POST',
       url: '/api/comments',
@@ -192,6 +204,9 @@ var loyaltyone = {
       let user = {
         username: $('#username').val()
       };
+
+      loyaltyone.getWeather($('#city').val());
+
       $.ajax({
         type: 'POST',
         url: '/login',
@@ -204,7 +219,10 @@ var loyaltyone = {
           if (jqXHR.status === 200) {
             welcome = 'Welcome back';
           }
-          $('.hello-user').html(`${welcome} <span class="user">${loyaltyone.user.username}</span>!`);
+          $('.hello-user .welcome').html(`${welcome}`);
+          $('.hello-user .user').html(`${loyaltyone.user.username}`);
+          $('.hello-user .temp').hide();
+          $('.hello-user .city').hide();
           $('#init-overlay').hide();
         },
         failure: function(errMsg) {
@@ -223,6 +241,30 @@ var loyaltyone = {
     } else {
       loyaltyone.isUserFiltered = true;
       loyaltyone.loadRootComments();
+    }
+  },
+
+  getWeather: function(city) {
+    $.ajax({
+      type: 'GET',
+      url: `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=f897089667f54eca680d91247fe53d95&callback=?`,
+      contentType: 'application/json',
+      dataType: 'jsonp',
+      jsonpCallback: 'loyaltyone.weatherCallback'
+    });
+  },
+
+  weatherCallback: function(data) {
+    loyaltyone.location = {
+      city: data.name,
+      coord: data.coord,
+      temp: data.main.temp
+    };
+    if (loyaltyone.location) {
+      $('.hello-user .temp').html(`Temp: ${Math.round(loyaltyone.location.temp)}&#8451;`);
+      $('.hello-user .temp').show();
+      $('.hello-user .city').html(`City: ${loyaltyone.location.city}`);
+      $('.hello-user .city').show();
     }
   },
 

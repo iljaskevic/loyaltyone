@@ -18,22 +18,10 @@
       <form id="user-info-form">
         <div class="form-row">
           <div class="col-md-12 mb-12">
-            <label for="username" class="user-input-label">Username</label>
             <input type="text" pattern="[a-zA-Z0-9_-]+" class="form-control is-valid user-input" id="username" name="username" placeholder="Username" title="Only alphanumeric characters, dashes and underscores" required>
-            <!-- <div class="invalid-feedback">
-              Only alphanumeric characters, dashes and underscores
-            </div> -->
+            <input type="text" class="form-control is-valid user-input" id="city" name="city" placeholder="City" required>
           </div>
         </div>
-        <!-- <div class="form-row">
-          <div class="col-md-12 mb-12">
-            <label for="validationServer03">City</label>
-            <input type="text" class="form-control is-invalid" id="validationServer03" placeholder="City" required>
-            <div class="invalid-feedback">
-              Please provide a valid city.
-            </div>
-          </div>
-        </div> -->
         <button class="btn btn-primary submit-btn" type="submit">Enter</button>
         <hr>
         <a href="#" class="btn btn-primary anonymous-btn" type="submit">Continue Anonymous</a>
@@ -42,7 +30,12 @@
   </div>
 
   <div class="container comment-wrapper">
-    <div class="hello-user"></div>
+    <div class="hello-user">
+      <span class="welcome"></span>
+      <span class="user"></span>!
+      <div class="temp"></div>
+      <div class="city"></div>
+    </div>
     <div class="add-comment">
         <div class="input-group mb-3">
           <textarea id="add-comment-text" class="form-control" placeholder="Post something..." aria-label="Post something..."></textarea>

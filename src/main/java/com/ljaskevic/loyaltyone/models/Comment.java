@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.ljaskevic.loyaltyone.models.User;
 import java.util.Date;
 
+import javax.tools.DocumentationTool.Location;
+
 @Document
 public class Comment {
 
@@ -17,6 +19,7 @@ public class Comment {
     public final User user;
     public final String content;
     public final Date dateCreated;
+    public final LocationInfo locationInfo;
     public int repliesCount;
 
     public Comment() {
@@ -26,15 +29,17 @@ public class Comment {
         this.content = "";
         this.repliesCount = 0;
         this.dateCreated = new Date();
+        this.locationInfo = new LocationInfo();
     }
 
-    public Comment(String parentId, User user, String content) {
+    public Comment(String parentId, User user, String content, LocationInfo locationInfo) {
         this.id = RandomStringUtils.randomAlphanumeric(8);
         this.parentId = parentId;
         this.user = user;
         this.repliesCount = 0;
         this.content = content;
         this.dateCreated = new Date();
+        this.locationInfo = locationInfo;
     }
 
     public String getId() {
@@ -63,5 +68,9 @@ public class Comment {
 
     public Date getDateCreated() {
         return dateCreated;
+    }
+
+    public LocationInfo getLocationInfo() {
+        return locationInfo;
     }
 }
