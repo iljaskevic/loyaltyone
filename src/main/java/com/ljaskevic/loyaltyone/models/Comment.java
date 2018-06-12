@@ -7,8 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.ljaskevic.loyaltyone.models.User;
 import java.util.Date;
 
-import javax.tools.DocumentationTool.Location;
-
 @Document
 public class Comment {
 
@@ -52,6 +50,10 @@ public class Comment {
 
     public int getRepliesCount() {
         return repliesCount;
+    }
+
+    public void setRepliesCount(int repliesCount) {
+        this.repliesCount = repliesCount;
     }
 
     public void incrementRepliesCount() {

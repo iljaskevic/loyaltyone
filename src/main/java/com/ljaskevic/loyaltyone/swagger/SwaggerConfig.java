@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.VendorExtension;
@@ -30,16 +29,13 @@ public class SwaggerConfig {
       "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0", new ArrayList<VendorExtension>());
 
   private static final Set<String> DEFAULT_PRODUCES_AND_CONSUMES =
-      new HashSet<String>(Arrays.asList("application/json",
+      new HashSet<>(Arrays.asList("application/json",
           "application/xml"));
 
   @Bean
   public Docket api() {
     return new Docket(DocumentationType.SWAGGER_2)
         .select()
-        // .apis(RequestHandlerSelectors.basePackage("com.ljaskevic.loyaltyone.controllers"))
-        // .apis(or(RequestHandlerSelectors.basePackage("com.ljaskevic.loyaltyone.controllers"),RequestHandlerSelectors.basePackage("org.springframework.boot.actuate")))
-        // .paths(PathSelectors.regex("/api.*"))
         .paths(PathSelectors.regex("/api.*|/actuator.*"))
         .build()
         .apiInfo(DEFAULT_API_INFO)
