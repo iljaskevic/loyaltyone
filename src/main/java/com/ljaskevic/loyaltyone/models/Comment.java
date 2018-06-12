@@ -18,7 +18,7 @@ public class Comment {
     public final String content;
     public final Date dateCreated;
     public final LocationInfo locationInfo;
-    public int repliesCount;
+    private int repliesCount;
 
     public Comment() {
         this.id = RandomStringUtils.randomAlphanumeric(8);
